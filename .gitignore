@@ -1,0 +1,6 @@
+/.idea
+.htaccess
+access.log
+error.log
+nbproject/*
+/vendor/*
