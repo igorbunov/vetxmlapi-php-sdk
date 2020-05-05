@@ -1,5 +1,21 @@
 {
+    "name": "igorbunov/vetxmlapiPhpSDK",
+    "description": "PHP SDK for integration with vetxmlapi",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "igorbunov",
+            "email": "igorbunov.ua@mail.com"
+        }
+    ],
     "require": {
-        "guzzlehttp/guzzle": "~6.0"
+        "guzzlehttp/guzzle": "~6.0",
+        "php": ">=7.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "VetScan\\" : "src"
+        }
     }
 }
