@@ -27,9 +27,9 @@ class Routes
     public function authRoute(): string
     {
         $credentials = base64_encode(
-            $this->config->get("username") .
+            $this->config->get("partnerId") .
             ':' .
-            $this->config->get("password")
+            $this->config->get("partnerPassword")
         );
 
         return 'Basic ' . $credentials;

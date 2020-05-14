@@ -8,6 +8,7 @@ use VetScan\Mappers\DevicesMapper;
 use VetScan\Mappers\DirectoryOfServiceMapper;
 use VetScan\Mappers\GendersMapper;
 use VetScan\Mappers\OrderMapping;
+use VetScan\Mappers\ResponseMapper;
 use VetScan\Mappers\SpeciesMapper;
 use VetScan\Models\Device;
 use VetScan\Models\Devices;
@@ -26,12 +27,18 @@ class Vetxmlapi
     public function __construct(Routes $routes, int $connectTimeoutSec = 5)
     {
         $this->routes = $routes;
-        $this->client = new Client();
+        $this->client = new Client([
+            'verify' => false,
+            'http_errors' => false
+        ]);
+
         $this->headers = [
             'Authorization' => $this->routes->authRoute(),
-            'Content-Type' => 'application/xmlcharset=UTF-8',
+            'Content-Type' => 'application/xml',
             'Cache-Control' => 'no-cache, no-store, max-age=0, must-revalidate',
-            'Pragma' => 'no-cache'
+            'Pragma' => 'no-cache',
+            'Accept-Encoding' => 'gzip, deflate, br',
+            'Connection' => 'keep-alive'
         ];
         $this->connectTimeout = $connectTimeoutSec;
     }
@@ -102,7 +109,7 @@ class Vetxmlapi
                 'headers' => $this->headers
             ]
         )->getBody()->getContents();
-
+//        pre($xml);
         return (new SpeciesMapper())->toObject($xml);
     }
 
@@ -120,21 +127,20 @@ class Vetxmlapi
         return (new GendersMapper())->toObject($xml);
     }
 
-
     public function createOrderInstantly(Order $order)
     {
-        return (new OrderMapping())->toXml($order);
+        $request = $this->client->request(
+            'POST',
+            $this->routes->getCreateOrderInstantly(),
+            [
+                'connect_timeout' => $this->connectTimeout,
+                'headers' => $this->headers,
+                'body' => (new OrderMapping())->toXml($order)
+            ]
+        );
 
-//        $request = $this->client->request(
-//            'POST',
-//            $this->routes->getCreateOrderInstantly(),
-//            [
-//                'connect_timeout' => $this->connectTimeout,
-//                'headers' => $this->headers,
-//                'body' => (new OrderMapping())->toXml($order)
-//            ]
-//        );
-//
-//        return $request->getBody()->getContents();
+        $xml = $request->getBody()->getContents();
+
+        return (new OrderMapping())->toObject($xml);
     }
 }
