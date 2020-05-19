@@ -3,17 +3,21 @@
 namespace VetScan;
 
 use GuzzleHttp\Client;
+use VetScan\Mappers\ClientsMapper;
 use VetScan\Mappers\DeviceMapper;
 use VetScan\Mappers\DevicesMapper;
 use VetScan\Mappers\DirectoryOfServiceMapper;
 use VetScan\Mappers\GendersMapper;
+use VetScan\Mappers\LabApiLinksMapper;
 use VetScan\Mappers\OrderMapping;
 use VetScan\Mappers\ResponseMapper;
+use VetScan\Mappers\SettingsMapper;
 use VetScan\Mappers\SpeciesMapper;
 use VetScan\Models\Device;
 use VetScan\Models\Devices;
 use VetScan\Models\DirectoryOfService;
 use VetScan\Models\Genders;
+use VetScan\Models\IModel;
 use VetScan\Models\Order;
 use VetScan\Models\Species;
 
@@ -109,7 +113,7 @@ class Vetxmlapi
                 'headers' => $this->headers
             ]
         )->getBody()->getContents();
-//        pre($xml);
+
         return (new SpeciesMapper())->toObject($xml);
     }
 
@@ -142,5 +146,69 @@ class Vetxmlapi
         $xml = $request->getBody()->getContents();
 
         return (new OrderMapping())->toObject($xml);
+    }
+
+    public function getSettings()
+    {
+        $request = $this->client->request(
+            'GET',
+            $this->routes->getSettings(),
+            [
+                'connect_timeout' => $this->connectTimeout,
+                'headers' => $this->headers
+            ]
+        );
+
+        $xml = $request->getBody()->getContents();
+
+        return (new SettingsMapper())->toObject($xml);
+    }
+
+    public function setSettings(IModel $model)
+    {
+        $request = $this->client->request(
+            'POST',
+            $this->routes->getSettings(),
+            [
+                'connect_timeout' => $this->connectTimeout,
+                'headers' => $this->headers,
+                'body' => (new SettingsMapper())->toXml($model)
+            ]
+        );
+
+        $xml = $request->getBody()->getContents();
+
+        return (new SettingsMapper())->toObject($xml);
+    }
+
+    public function getClients()
+    {
+        $request = $this->client->request(
+            'GET',
+            $this->routes->getClients(),
+            [
+                'connect_timeout' => $this->connectTimeout,
+                'headers' => $this->headers
+            ]
+        );
+
+        $xml = $request->getBody()->getContents();
+
+        return (new ClientsMapper())->toObject($xml);
+    }
+
+    public function getLabApiLinks()
+    {
+        $xml = $this->client->request(
+            'GET',
+            $this->routes->getLabApiLinks(),
+            [
+                'connect_timeout' => $this->connectTimeout,
+                'headers' => $this->headers
+            ]
+        )->getBody()->getContents();
+
+        return (new LabApiLinksMapper())->toObject($xml);
+
     }
 }

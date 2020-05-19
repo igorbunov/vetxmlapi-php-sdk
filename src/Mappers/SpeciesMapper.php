@@ -10,10 +10,11 @@ class SpeciesMapper implements IMapper
 {
     public function toObject(string $xml): IModel
     {
-        $obj = simplexml_load_string($xml);
+        $xmlObj = simplexml_load_string($xml);
+
         $species = new Species();
 
-        foreach ($obj->specie as $specie) {
+        foreach ($xmlObj->specie as $specie) {
             $species->add(new Specie(strval($specie)));
         }
 

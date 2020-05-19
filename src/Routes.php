@@ -15,10 +15,10 @@ class Routes
 
     public function getAllRoutes(): string
     {
-        $route = '{{ROOT}}/vetsync/v1';
+        $route = '{{HOST}}/vetsync/v1';
 
         return str_replace(
-            '{{ROOT}}',
+            '{{HOST}}',
             $this->apiUrl,
             $route
         );
@@ -37,10 +37,10 @@ class Routes
 
     public function getDevices(): string
     {
-        $route = '{{ROOT}}/vetsync/v1/devices';
+        $route = '{{HOST}}/vetsync/v1/devices';
 
         return str_replace(
-            '{{ROOT}}',
+            '{{HOST}}',
             $this->apiUrl,
             $route
         );
@@ -48,11 +48,11 @@ class Routes
 
     public function getDeviceById(string $deviceId): string
     {
-        $route = '{{ROOT}}/vetsync/v1/devices/{{DEVICE_ID}}';
+        $route = '{{HOST}}/vetsync/v1/devices/{{DEVICE_ID}}';
 
         return str_replace(
             [
-                '{{ROOT}}',
+                '{{HOST}}',
                 '{{DEVICE_ID}}'
             ], [
                 $this->apiUrl,
@@ -63,10 +63,10 @@ class Routes
 
     public function getServices(): string
     {
-        $route = '{{ROOT}}/vetsync/v1/services';
+        $route = '{{HOST}}/vetsync/v1/services';
 
         return str_replace(
-            '{{ROOT}}',
+            '{{HOST}}',
             $this->apiUrl,
             $route
         );
@@ -74,11 +74,11 @@ class Routes
 
     public function getServiceByCode(string $serviceCode): string
     {
-        $route = '{{ROOT}}/vetsync/v1/services/{{SERVICE_CODE}}';
+        $route = '{{HOST}}/vetsync/v1/services/{{SERVICE_CODE}}';
 
         return str_replace(
             [
-                '{{ROOT}}',
+                '{{HOST}}',
                 '{{SERVICE_CODE}}'
             ], [
                 $this->apiUrl,
@@ -89,10 +89,10 @@ class Routes
 
     public function getSpecies(): string
     {
-        $route = '{{ROOT}}/vetsync/v1/species';
+        $route = '{{HOST}}/vetsync/v1/species';
 
         return str_replace(
-            '{{ROOT}}',
+            '{{HOST}}',
             $this->apiUrl,
             $route
         );
@@ -100,10 +100,32 @@ class Routes
 
     public function getGenders(): string
     {
-        $route = '{{ROOT}}/vetsync/v1/genders';
+        $route = '{{HOST}}/vetsync/v1/genders';
 
         return str_replace(
-            '{{ROOT}}',
+            '{{HOST}}',
+            $this->apiUrl,
+            $route
+        );
+    }
+
+    public function getClients(): string
+    {
+        $route = '{{HOST}}/vetsync/v1/clients';
+
+        return str_replace(
+            '{{HOST}}',
+            $this->apiUrl,
+            $route
+        );
+    }
+
+    public function getLabApiLinks(): string
+    {
+        $route = '{{HOST}}/vetsync/v1';
+
+        return str_replace(
+            '{{HOST}}',
             $this->apiUrl,
             $route
         );
@@ -111,10 +133,10 @@ class Routes
 
     public function getPendingOrders(): string
     {
-        $route = '{{ROOT}}/vetsync/v1/orders';
+        $route = '{{HOST}}/vetsync/v1/orders';
 
         return str_replace(
-            '{{ROOT}}',
+            '{{HOST}}',
             $this->apiUrl,
             $route
         );
@@ -122,11 +144,11 @@ class Routes
 
     public function getOrderStatusById(string $orderId): string
     {
-        $route = '{{ROOT}}/vetsync/v1/orders/{{CLIENT_ORDER_ID}}/status';
+        $route = '{{HOST}}/vetsync/v1/orders/{{CLIENT_ORDER_ID}}/status';
 
         return str_replace(
             [
-                '{{ROOT}}',
+                '{{HOST}}',
                 '{{CLIENT_ORDER_ID}}'
             ], [
                 $this->apiUrl,
@@ -137,11 +159,11 @@ class Routes
 
     public function getOrderResultByPracticeRef(string $practiceRef): string
     {
-        $route = '{{ROOT}}/vetsync/v1/orders/{{PRACTICE_REF}}/results';
+        $route = '{{HOST}}/vetsync/v1/orders/{{PRACTICE_REF}}/results';
 
         return str_replace(
             [
-                '{{ROOT}}',
+                '{{HOST}}',
                 '{{PRACTICE_REF}}'
             ], [
                 $this->apiUrl,
@@ -152,10 +174,10 @@ class Routes
 
     public function getSearchOrders(): string
     {
-        $route = '{{ROOT}}/vetsync/v1/orders/search';
+        $route = '{{HOST}}/vetsync/v1/orders/search';
 
         return str_replace(
-            '{{ROOT}}',
+            '{{HOST}}',
             $this->apiUrl,
             $route
         );
@@ -163,10 +185,10 @@ class Routes
 
     public function getBatchResults(): string
     {
-        $route = '{{ROOT}}/vetsync/v1/orders/batch/results';
+        $route = '{{HOST}}/vetsync/v1/orders/batch/results';
 
         return str_replace(
-            '{{ROOT}}',
+            '{{HOST}}',
             $this->apiUrl,
             $route
         );
@@ -174,10 +196,10 @@ class Routes
 
     public function getCreateOrderWithDelay(): string
     {
-        $route = '{{ROOT}}/vetsync/v1/orders';
+        $route = '{{HOST}}/vetsync/v1/orders';
 
         return str_replace(
-            '{{ROOT}}',
+            '{{HOST}}',
             $this->apiUrl,
             $route
         );
@@ -185,10 +207,10 @@ class Routes
 
     public function getCreateOrderInstantly(): string
     {
-        $route = '{{ROOT}}/vetsync/v1/orders';
+        $route = '{{HOST}}/vetsync/v1/orders';
 
         return str_replace(
-            '{{ROOT}}',
+            '{{HOST}}',
             $this->apiUrl,
             $route
         );
@@ -196,11 +218,11 @@ class Routes
 
     public function getAcknowledgeOrder(string $practiceRef): string
     {
-        $route  = '{{ROOT}}/vetsync/v1/orders/{{PRACTICE_REF}}/acknowledged/COMPLETED';
+        $route  = '{{HOST}}/vetsync/v1/orders/{{PRACTICE_REF}}/acknowledged/COMPLETED';
 
         return str_replace(
             [
-                '{{ROOT}}',
+                '{{HOST}}',
                 '{{PRACTICE_REF}}'
             ], [
                 $this->apiUrl,
@@ -211,11 +233,11 @@ class Routes
 
     public function getAcknowledgeBatchResults(): string
     {
-        $route  = '{{ROOT}}/vetsync/v1/orders/batch/acknowledged';
+        $route  = '{{HOST}}/vetsync/v1/orders/batch/acknowledged';
 
         return str_replace(
             [
-                '{{ROOT}}',
+                '{{HOST}}',
             ], [
                 $this->apiUrl
             ], $route
@@ -224,11 +246,11 @@ class Routes
 
     public function getCancelOrder(string $practiceRef): string
     {
-        $route = '{{ROOT}}/vetsync/v1/orders/{{PRACTICE_REF}}';
+        $route = '{{HOST}}/vetsync/v1/orders/{{PRACTICE_REF}}';
 
         return str_replace(
             [
-                '{{ROOT}}',
+                '{{HOST}}',
                 '{{PRACTICE_REF}}'
             ], [
                 $this->apiUrl,
@@ -239,11 +261,11 @@ class Routes
 
     public function getCancelOrderByTestCode(string $practiceRef, string $testCode): string
     {
-        $route = '{{ROOT}}/vetsync/v1/orders/{{PRACTICE_REF}}/:{{TEST_CODE}}';
+        $route = '{{HOST}}/vetsync/v1/orders/{{PRACTICE_REF}}/:{{TEST_CODE}}';
 
         return str_replace(
             [
-                '{{ROOT}}',
+                '{{HOST}}',
                 '{{PRACTICE_REF}}',
                 '{{TEST_CODE}}'
             ], [
@@ -254,6 +276,17 @@ class Routes
         );
     }
 
+    public function getSettings(): string
+    {
+        $route = '{{HOST}}/vetsync/v1/settings';
+
+        return str_replace(
+            '{{HOST}}',
+            $this->apiUrl,
+            $route
+        );
+    }
+
     public function getReassignTestToDifferentDevice(
         string $practiceRef,
         string $testCode,
@@ -261,11 +294,11 @@ class Routes
         string $oldDeviceId
     ): string
     {
-        $route = '{{ROOT}}/vetsync/v1/orders/{{PRACTICE_REF}}/:{{TEST_CODE}}/:{{NEW_DEVICE_ID}}/:{{OLD_DEVICE_ID}}';
+        $route = '{{HOST}}/vetsync/v1/orders/{{PRACTICE_REF}}/:{{TEST_CODE}}/:{{NEW_DEVICE_ID}}/:{{OLD_DEVICE_ID}}';
 
         return str_replace(
             [
-                '{{ROOT}}',
+                '{{HOST}}',
                 '{{PRACTICE_REF}}',
                 '{{TEST_CODE}}',
                 '{{NEW_DEVICE_ID}}',

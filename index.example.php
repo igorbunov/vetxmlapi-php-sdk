@@ -30,30 +30,64 @@ $api = new Vetxmlapi(new Routes(new Config([
     'clientPassword' => 'your client password'
 ])));
 
-//$order = new \VetScan\Models\Order();
-//
-//try {
-//    $orderResult = $api->createOrderInstantly($order);
-//    pre('result', $orderResult);
-//} catch (OderAlreadyInSystemError $err) {
-//    pre('order already exists: ' . $err->getMessage());
-//} catch (\Exception $err) {
-//    pre('total error: ' . $err->getMessage());
-//}
 
+/*
+// get lab api links
+$links = $api->getLabApiLinks();
+pre($links);
+*/
 
-//$device = $api->getDeviceById('0000V99312'); // dont use this
-//pre($device);
+/*
+// get device by id
+$device = $api->getDeviceById('0000V99312'); // dont use this
+pre($device);
+*/
 
-//$devices = $api->getDevices(); // dont use this
-//pre($devices);
+/*
+// get service
+$service = $api->getServiceByCode('AR'); // code from services
+pre($service);
+*/
 
-//$service = $api->getServiceByCode('Fib');
-//pre($service);
+/*
+// get services
+$services = $api->getServices();
+pre($services);
+*/
 
+/*
+// get devices (recomended not to use)
+$devices = $api->getDevices();
+pre($devices);
+*/
 
-//$species = $api->getSpecies();
-//pre($species);
+/*
+// get species
+$species = $api->getSpecies();
+pre($species);
+*/
 
-//$genders = $api->getGenders();
-//pre($genders);
+/*
+// get genders
+$genders = $api->getGenders();
+pre($genders);
+*/
+
+/*
+// get clients
+$clients = $api->getClients();
+pre('clients', $clients);
+*/
+
+/*
+// set setting
+$settingModel = new \VetScan\Models\Setting(true, 5);
+pre($settingModel);
+
+$setResult = $api->setSettings($settingModel);
+pre('result after set', $setResult);
+
+// get setting
+$settings = $api->getSettings();
+pre('get settings', $settings);
+*/
