@@ -10,6 +10,8 @@ use VetScan\Mappers\DirectoryOfServiceMapper;
 use VetScan\Mappers\GendersMapper;
 use VetScan\Mappers\LabApiLinksMapper;
 use VetScan\Mappers\OrderMapping;
+use VetScan\Mappers\OrderLabResultMapping;
+use VetScan\Mappers\OrdersMapping;
 use VetScan\Mappers\ResponseMapper;
 use VetScan\Mappers\SettingsMapper;
 use VetScan\Mappers\SpeciesMapper;
@@ -18,7 +20,7 @@ use VetScan\Models\Devices;
 use VetScan\Models\DirectoryOfService;
 use VetScan\Models\Genders;
 use VetScan\Models\IModel;
-use VetScan\Models\Order;
+use VetScan\Models\OrderResult;
 use VetScan\Models\Species;
 
 class Vetxmlapi
@@ -131,7 +133,7 @@ class Vetxmlapi
         return (new GendersMapper())->toObject($xml);
     }
 
-    public function createOrderInstantly(Order $order)
+    public function createOrderInstantly(OrderResult $order)
     {
         $request = $this->client->request(
             'POST',
@@ -139,13 +141,13 @@ class Vetxmlapi
             [
                 'connect_timeout' => $this->connectTimeout,
                 'headers' => $this->headers,
-                'body' => (new OrderMapping())->toXml($order)
+                'body' => (new OrdersMapping())->toXml($order)
             ]
         );
 
         $xml = $request->getBody()->getContents();
 
-        return (new OrderMapping())->toObject($xml);
+        return (new OrdersMapping())->toObject($xml);
     }
 
     public function getSettings()
@@ -209,6 +211,88 @@ class Vetxmlapi
         )->getBody()->getContents();
 
         return (new LabApiLinksMapper())->toObject($xml);
+    }
 
+    public function getPendingOrders()
+    {
+        $xml = $this->client->request(
+            'GET',
+            $this->routes->getPendingOrders(),
+            [
+                'connect_timeout' => $this->connectTimeout,
+                'headers' => $this->headers
+            ]
+        )->getBody()->getContents();
+
+        return (new OrdersMapping())->toObject($xml);
+    }
+
+    public function getOrderByPractiseRef(string $practiceRef)
+    {
+        $xml = $this->client->request(
+            'GET',
+            $this->routes->getOrderByPractiseRef($practiceRef),
+            [
+                'connect_timeout' => $this->connectTimeout,
+                'headers' => $this->headers
+            ]
+        )->getBody()->getContents();
+
+        return (new OrderMapping())->toObject($xml);
+    }
+
+    public function getOrderResultByPractiseRef(string $practiceRef)
+    {
+        $xml = $this->client->request(
+            'GET',
+            $this->routes->getOrderResultByPractiseRef($practiceRef),
+            [
+                'connect_timeout' => $this->connectTimeout,
+                'headers' => $this->headers
+            ]
+        )->getBody()->getContents();
+
+        return (new OrderLabResultMapping())->toObject($xml);
+    }
+
+    public function getOrderSearch(string $providerID, string $status)
+    {
+        $xml = $this->client->request(
+            'GET',
+            $this->routes->getOrderSearch(),
+            [
+                'connect_timeout' => $this->connectTimeout,
+                'headers' => $this->headers
+            ], [
+                'query' => [
+                    'providerid' => $providerID,
+                    'status' => $status
+                ]
+            ]
+        )->getBody()->getContents();
+
+        return (new OrdersMapping())->toObject($xml);
+    }
+
+    public function getOrdersByProviderClientStatus(
+        string $providerID,
+        string $status,
+        string $clientId
+    ) {
+        $xml = $this->client->request(
+            'GET',
+            $this->routes->getOrderSearchByClientId($clientId),
+            [
+                'connect_timeout' => $this->connectTimeout,
+                'headers' => $this->headers
+            ], [
+                'query' => [
+                    'providerid' => $providerID,
+                    'status' => $status
+                ]
+            ]
+        )->getBody()->getContents();
+
+        return (new OrdersMapping())->toObject($xml);
     }
 }

@@ -8,30 +8,40 @@ use VetScan\Models\Link;
 use VetScan\Models\OrderResult;
 use VetScan\Models\PendingOrders;
 
-class OrderMapping implements IMapper
+class OrdersMapping implements IMapper
 {
     public function toObject(string $xml): IModel
     {
-        $order = simplexml_load_string($xml);
+        $orders = simplexml_load_string($xml);
 
-        $orderObj = new OrderResult(
-            strval($order['id']),
-            strval($order['client_order_id']),
-            strval($order->status),
-            strval($order->timestamp),
-            strval($order->clientId)
-        );
-
-        foreach ($order->link as $lnk) {
-            $orderObj->addLink(new Link(
-                strval($lnk['href']),
-                strval($lnk['method']),
-                strval($lnk['rel']),
-                strval($lnk['type'])
-            ));
+        if (!is_null($orders) and $orders->getName() == 'error') {
+            throw new OderAlreadyInSystemError(strval($orders->message));
         }
 
-        return $orderObj;
+        $pendingOrders = new PendingOrders();
+
+        foreach ($orders as $order) {
+            $orderObj = new OrderResult(
+                strval($order['id']),
+                strval($order['client_order_id']),
+                strval($order->status),
+                strval($order->timestamp),
+                strval($order->clientId)
+            );
+
+            foreach ($order->link as $lnk) {
+                $orderObj->addLink(new Link(
+                    strval($lnk['href']),
+                    strval($lnk['method']),
+                    strval($lnk['rel']),
+                    strval($lnk['type'])
+                ));
+            }
+
+            $pendingOrders->addOrder($orderObj);
+        }
+
+        return $pendingOrders;
     }
 
     public function toXml(IModel $obj): string
@@ -65,11 +75,11 @@ class OrderMapping implements IMapper
         $animalDetails->addChild('DateOfBirth', '2013-08-03');
 
         $labRequests = $xml->addChild('LabRequests');
-        $labRequest = $labRequests->addChild('LabRequest');
-        $labRequest->addChild('TestCode', 'HEM');
+            $labRequest = $labRequests->addChild('LabRequest');
+                $labRequest->addChild('TestCode', 'HEM');
 
-        $labRequest = $labRequests->addChild('LabRequest');
-        $labRequest->addChild('TestCode', 'T4');
+            $labRequest = $labRequests->addChild('LabRequest');
+                $labRequest->addChild('TestCode', 'T4');
 
 
         //TODO: continue

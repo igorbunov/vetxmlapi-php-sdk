@@ -287,6 +287,62 @@ class Routes
         );
     }
 
+    public function getOrderSearch(): string
+    {
+        $route = '{{HOST}}/vetsync/v1/orders/search';
+
+        return str_replace(
+            '{{HOST}}',
+            $this->apiUrl,
+            $route
+        );
+    }
+
+    public function getOrderByPractiseRef(string $practiceRef): string
+    {
+        $route = '{{HOST}}/vetsync/v1/orders/{{id}}/status';
+
+        return str_replace(
+            [
+                '{{HOST}}',
+                '{{id}}',
+            ], [
+                $this->apiUrl,
+                $practiceRef
+            ], $route
+        );
+    }
+
+    public function getOrderResultByPractiseRef(string $practiceRef): string
+    {
+        $route = '{{HOST}}/vetsync/v1/orders/{{id}}/results';
+
+        return str_replace(
+            [
+                '{{HOST}}',
+                '{{id}}',
+            ], [
+                $this->apiUrl,
+                $practiceRef
+            ], $route
+        );
+    }
+
+    public function getOrderSearchByClientId(string $clientId): string
+    {
+        $route = '{{HOST}}/vetsync/v1/orders/search?clientId={{clientId}}';
+
+        return str_replace(
+            [
+                '{{HOST}}',
+                '{{clientId}}',
+            ], [
+                $this->apiUrl,
+                $clientId
+            ], $route
+        );
+    }
+
     public function getReassignTestToDifferentDevice(
         string $practiceRef,
         string $testCode,

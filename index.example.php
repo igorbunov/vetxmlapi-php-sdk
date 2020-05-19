@@ -30,6 +30,39 @@ $api = new Vetxmlapi(new Routes(new Config([
     'clientPassword' => 'your client password'
 ])));
 
+/*
+// get total order result by practise ref
+$result = $api->getOrderResultByPractiseRef('rhapsody-1');
+pre($result);
+*/
+
+/*
+// get order by practise ref
+$orders = $api->getOrderByPractiseRef('rhapsody-1');
+pre($orders);
+*/
+
+/*
+// get searched order by provider and status and clientId
+$orders = $api->getOrdersByProviderClientStatus(
+    'provider-2',
+    'COMPLETED',
+    'vetmanagerclient'
+);
+pre($orders);
+*/
+
+/*
+// get searched order by provider and status
+$orders = $api->getOrderSearch('provider-2', 'COMPLETED');
+pre($orders);
+*/
+
+/*
+// get orders status
+$orders = $api->getPendingOrders();
+pre($orders);
+*/
 
 /*
 // get lab api links
