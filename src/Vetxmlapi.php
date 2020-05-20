@@ -3,6 +3,7 @@
 namespace VetScan;
 
 use GuzzleHttp\Client;
+use VetScan\Mappers\BatchResultsMapper;
 use VetScan\Mappers\ClientsMapper;
 use VetScan\Mappers\DeviceMapper;
 use VetScan\Mappers\DevicesMapper;
@@ -294,5 +295,19 @@ class Vetxmlapi
         )->getBody()->getContents();
 
         return (new OrdersMapping())->toObject($xml);
+    }
+
+    public function getBatchResults()
+    {
+        $xml = $this->client->request(
+            'GET',
+            $this->routes->getBatchResults(),
+            [
+                'connect_timeout' => $this->connectTimeout,
+                'headers' => $this->headers
+            ]
+        )->getBody()->getContents();
+
+        return (new BatchResultsMapper())->toObject($xml);
     }
 }
