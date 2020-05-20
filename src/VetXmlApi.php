@@ -24,7 +24,7 @@ use VetScan\Models\IModel;
 use VetScan\Models\OrderResult;
 use VetScan\Models\Species;
 
-class Vetxmlapi
+class VetXmlApi
 {
     private $routes;
     private $client;

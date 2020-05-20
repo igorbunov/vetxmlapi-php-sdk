@@ -3,7 +3,7 @@
 require_once 'vendor/autoload.php';
 
 use \VetScan\Config;
-use \VetScan\Vetxmlapi;
+use \VetScan\VetXmlApi;
 use \VetScan\Routes;
 use \VetScan\Errors\OderAlreadyInSystemError;
 
@@ -20,7 +20,7 @@ if (!function_exists('pre')) {
     }
 }
 
-$api = new Vetxmlapi(new Routes(new Config([
+$api = new VetXmlApi(new Routes(new Config([
     'apiUrl' => 'https://vetscan-fuse-proxy.azurewebsites.net',
 
     'partnerId' => 'your partner id',
