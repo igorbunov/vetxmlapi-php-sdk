@@ -21,6 +21,7 @@ use VetScan\Models\Devices;
 use VetScan\Models\DirectoryOfService;
 use VetScan\Models\Genders;
 use VetScan\Models\IModel;
+use VetScan\Models\LabResults\TotalLabResult;
 use VetScan\Models\OrderResult;
 use VetScan\Models\Species;
 
@@ -132,23 +133,6 @@ class VetXmlApi
         )->getBody()->getContents();
 
         return (new GendersMapper())->toObject($xml);
-    }
-
-    public function createOrderInstantly(OrderResult $order)
-    {
-        $request = $this->client->request(
-            'POST',
-            $this->routes->getCreateOrderInstantly(),
-            [
-                'connect_timeout' => $this->connectTimeout,
-                'headers' => $this->headers,
-                'body' => (new OrdersMapping())->toXml($order)
-            ]
-        );
-
-        $xml = $request->getBody()->getContents();
-
-        return (new OrdersMapping())->toObject($xml);
     }
 
     public function getSettings()
@@ -310,4 +294,29 @@ class VetXmlApi
 
         return (new BatchResultsMapper())->toObject($xml);
     }
+
+
+
+    public function createOrderInstantly(OrderResult $order)
+    {
+        $request = $this->client->request(
+            'POST',
+            $this->routes->getCreateOrderInstantly(),
+            [
+                'connect_timeout' => $this->connectTimeout,
+                'headers' => $this->headers,
+                'body' => (new OrdersMapping())->toXml($order)
+            ]
+        );
+
+        $xml = $request->getBody()->getContents();
+
+        return (new OrdersMapping())->toObject($xml);
+    }
+
+    public function createOrderAsPartner(TotalLabResult $order)
+    {
+
+    }
+
 }

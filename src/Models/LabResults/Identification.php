@@ -27,7 +27,7 @@ class Identification implements IModel
         $ownerID,
         $vetName,
         $vetID,
-        $reportNotes
+        $reportNotes = ''
     ) {
         $this->reportType = $reportType;
         $this->practiceID = $practiceID;

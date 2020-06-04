@@ -12,7 +12,7 @@ class LabResultHeader implements IModel
     private $resultDate;
     private $resultStatus;
 
-    public function __construct($testCode, $testName, $testType, $resultDate, $resultStatus)
+    public function __construct($testCode, $testName = '', $testType = '', $resultDate = '', $resultStatus = '')
     {
         $this->testCode = $testCode;
         $this->testName = $testName;
