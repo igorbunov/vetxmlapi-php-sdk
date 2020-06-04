@@ -1,5 +1,5 @@
 {
-    "name": "igorbunov/vetxmlapiPhpSDK",
+    "name": "igorbunov/vetxmlapi-php-sdk",
     "description": "PHP SDK for integration with vetxmlapi",
     "type": "library",
     "license": "MIT",
