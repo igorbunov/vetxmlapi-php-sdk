@@ -6,16 +6,16 @@ use VetScan\Models\IModel;
 
 class Identification implements IModel
 {
-    private $reportType;
-    private $practiceID;
-    private $clientId;
-    private $practiceRef;
-    private $laboratoryRef;
-    private $ownerName;
-    private $ownerID;
-    private $vetName;
-    private $vetID;
-    private $reportNotes;
+    public $reportType;
+    public $practiceID;
+    public $clientId;
+    public $practiceRef;
+    public $laboratoryRef;
+    public $ownerName;
+    public $ownerID;
+    public $vetName;
+    public $vetID;
+    public $reportNotes;
 
     public function __construct(
         $reportType,

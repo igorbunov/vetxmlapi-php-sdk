@@ -4,13 +4,13 @@ namespace VetScan\Models;
 
 class Test implements IModel
 {
-    private $code;
-    private $name;
-    private $replicate;
-    private $validFrom;
-    private $includes;
-    private $currency;
-    private $nonDiscountable;
+    public $code;
+    public $name;
+    public $replicate;
+    public $validFrom;
+    public $includes;
+    public $currency;
+    public $nonDiscountable;
 
     public function __construct(
         $code,

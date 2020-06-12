@@ -4,7 +4,7 @@ namespace VetScan\Models;
 
 class Genders implements IModel
 {
-    private $genders = [];
+    public $genders = [];
 
     public function __construct(array $genders = [])
     {

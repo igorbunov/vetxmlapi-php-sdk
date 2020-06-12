@@ -6,11 +6,11 @@ use VetScan\Models\IModel;
 
 class LabResultHeader implements IModel
 {
-    private $testCode;
-    private $testName;
-    private $testType;
-    private $resultDate;
-    private $resultStatus;
+    public $testCode;
+    public $testName;
+    public $testType;
+    public $resultDate;
+    public $resultStatus;
 
     public function __construct($testCode, $testName = '', $testType = '', $resultDate = '', $resultStatus = '')
     {

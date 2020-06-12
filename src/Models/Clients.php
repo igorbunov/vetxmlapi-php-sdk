@@ -4,7 +4,7 @@ namespace VetScan\Models;
 
 class Clients implements IModel
 {
-    private $clients;
+    public $clients;
 
     public function __construct($clients = [])
     {

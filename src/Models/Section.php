@@ -4,8 +4,8 @@ namespace VetScan\Models;
 
 class Section implements IModel
 {
-    private $name;
-    private $tests;
+    public $name;
+    public $tests;
 
     public function __construct(string $name, array $tests = [])
     {

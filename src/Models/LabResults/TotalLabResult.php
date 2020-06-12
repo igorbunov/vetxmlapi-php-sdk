@@ -6,9 +6,9 @@ use VetScan\Models\IModel;
 
 class TotalLabResult implements IModel
 {
-    private $identification;
-    private $animalDetails;
-    private $labResults;
+    public $identification;
+    public $animalDetails;
+    public $labResults;
 
     public function __construct(
         Identification $identification,

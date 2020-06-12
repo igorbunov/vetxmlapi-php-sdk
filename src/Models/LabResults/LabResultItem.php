@@ -6,10 +6,10 @@ use VetScan\Models\IModel;
 
 class LabResultItem implements IModel
 {
-    private $analyteCode;
-    private $analyteName;
-    private $result;
-    private $resultText;
+    public $analyteCode;
+    public $analyteName;
+    public $result;
+    public $resultText;
 
     public function __construct($analyteCode, $analyteName, $result, $resultText)
     {

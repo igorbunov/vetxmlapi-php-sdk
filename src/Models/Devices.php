@@ -4,7 +4,7 @@ namespace VetScan\Models;
 
 class Devices implements IModel
 {
-    private $devices;
+    public $devices;
 
     public function __construct($devices = [])
     {

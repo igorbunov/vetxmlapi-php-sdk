@@ -4,7 +4,7 @@ namespace VetScan\Models;
 
 class DirectoryOfService implements IModel
 {
-    private $sections;
+    public $sections;
 
     public function __construct($sections = [])
     {

@@ -4,7 +4,7 @@ namespace VetScan\Models;
 
 class PendingOrders implements IModel
 {
-    private $orders;
+    public $orders;
 
     public function __construct($orders = [])
     {

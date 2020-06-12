@@ -4,7 +4,7 @@ namespace VetScan\Models;
 
 class LabApi implements IModel
 {
-    private $links;
+    public $links;
 
     public function __construct($links = [])
     {

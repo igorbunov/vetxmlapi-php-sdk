@@ -6,13 +6,13 @@ use VetScan\Models\IModel;
 
 class AnimalDetail implements IModel
 {
-    private $animalID;
-    private $internalAnimalID;
-    private $animalName;
-    private $gender;
-    private $species;
-    private $breed;
-    private $dateOfBirth;
+    public $animalID;
+    public $internalAnimalID;
+    public $animalName;
+    public $gender;
+    public $species;
+    public $breed;
+    public $dateOfBirth;
 
     public function __construct($animalID, $internalAnimalID, $animalName, $gender, $species, $breed, $dateOfBirth)
     {

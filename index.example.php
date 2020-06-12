@@ -7,6 +7,14 @@ use \VetScan\VetXmlApi;
 use \VetScan\Routes;
 use \VetScan\Errors\OderAlreadyInSystemError;
 
+use \VetScan\Models\LabResults\TotalLabResult;
+use \VetScan\Models\LabResults\Identification;
+use \VetScan\Models\LabResults\AnimalDetail;
+use \VetScan\Models\LabResults\LabResults;
+use \VetScan\Models\LabResults\LabResult;
+use \VetScan\Models\LabResults\LabResultHeader;
+use \VetScan\Models\LabResults\LabResultItems;
+
 if (!function_exists('pre')) {
     function pre(){
         $numargs = func_num_args();
@@ -20,15 +28,84 @@ if (!function_exists('pre')) {
     }
 }
 
+$clientId = 'your client id';
+
 $api = new VetXmlApi(new Routes(new Config([
     'apiUrl' => 'https://vetscan-fuse-proxy.azurewebsites.net',
 
     'partnerId' => 'your partner id',
     'partnerPassword' => 'your partner password',
 
-    'clientId' => 'your client id',
+    'clientId' => $clientId,
     'clientPassword' => 'your client password'
 ])));
+
+
+// POST REQUESTS //
+
+
+$order = new TotalLabResult(
+    new Identification(
+        'Request',
+        'Practice1',
+        $clientId,
+        'rhapsody-3', // must be unique
+        46,
+        'FUSE, Ezyvet',
+        4,
+        'Corleone, Michael',
+        'provider-1'
+    ),
+    new AnimalDetail(
+        100004,
+        '',
+        'Rover',
+        'Male',
+        'DOG',
+        'Labrador',
+        '2013-08-03'
+    ),
+    new LabResults([
+        new LabResult(
+            new LabResultHeader('HEM')
+        ),
+        new LabResult(
+            new LabResultHeader('T4')
+        )
+    ])
+);
+
+try {
+    $result = $api->createOrderAsPartner($order);
+    pre($result);
+} catch (\Exception $err) {
+    pre($err->getMessage());
+}
+
+
+//$order = new \VetScan\Models\Order();
+//
+//try {
+//    $orderResult = $api->createOrderInstantly($order);
+//    pre('result', $orderResult);
+//} catch (OderAlreadyInSystemError $err) {
+//    pre('order already exists: ' . $err->getMessage());
+//} catch (\Exception $err) {
+//    pre('total error: ' . $err->getMessage());
+//}
+
+
+
+
+
+
+
+// GET REQUESTS //
+
+/*
+$batchResults = $api->getBatchResults();
+pre($batchResults);
+*/
 
 /*
 // get total order result by practise ref

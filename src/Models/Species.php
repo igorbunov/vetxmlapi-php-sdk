@@ -4,7 +4,7 @@ namespace VetScan\Models;
 
 class Species implements IModel
 {
-    private $species = [];
+    public $species = [];
 
     public function __construct(array $species = [])
     {

@@ -6,8 +6,8 @@ use VetScan\Models\IModel;
 
 class LabResult implements IModel
 {
-    private $header;
-    private $resultItems;
+    public $header;
+    public $resultItems;
 
     public function __construct(
         LabResultHeader $header = null,

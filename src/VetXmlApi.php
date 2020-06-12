@@ -316,7 +316,19 @@ class VetXmlApi
 
     public function createOrderAsPartner(TotalLabResult $order)
     {
+        $request = $this->client->request(
+            'POST',
+            $this->routes->createOrderAsPartner(),
+            [
+                'connect_timeout' => $this->connectTimeout,
+                'headers' => $this->headers,
+                'body' => (new OrdersMapping())->toXml($order)
+            ]
+        );
 
+        $xml = $request->getBody()->getContents();
+
+        return (new OrdersMapping())->toObject($xml);
     }
 
 }

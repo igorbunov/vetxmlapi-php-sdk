@@ -4,7 +4,7 @@ namespace VetScan\Models;
 
 class Gender implements IModel
 {
-    private $sex;
+    public $sex;
 
     public function __construct($sex)
     {

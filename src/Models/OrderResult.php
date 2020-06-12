@@ -4,12 +4,12 @@ namespace VetScan\Models;
 
 class OrderResult implements IModel
 {
-    private $links;
-    private $orderId;
-    private $clientOrderId;
-    private $status;
-    private $timestamp;
-    private $clientId;
+    public $links;
+    public $orderId;
+    public $clientOrderId;
+    public $status;
+    public $timestamp;
+    public $clientId;
 
     public function __construct(
         string $orderId,

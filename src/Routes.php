@@ -368,4 +368,11 @@ class Routes
             ], $route
         );
     }
+
+    public function createOrderAsPartner()
+    {
+        $route = '{{HOST}}/vetsync/v1/orders';
+
+        return str_replace(['{{HOST}}'], [$this->apiUrl], $route);
+    }
 }

@@ -4,15 +4,15 @@ namespace VetScan\Models;
 
 class Device implements IModel
 {
-    private $id;
-    private $type;
-    private $displayName;
-    private $softwareRevision;
-    private $serialNumber;
-    private $group;
-    private $currentStatus;
-    private $directoryOfServiceName;
-    private $tests;
+    public $id;
+    public $type;
+    public $displayName;
+    public $softwareRevision;
+    public $serialNumber;
+    public $group;
+    public $currentStatus;
+    public $directoryOfServiceName;
+    public $tests;
 
     public function __construct(
         string $id,

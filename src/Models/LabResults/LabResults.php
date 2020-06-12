@@ -6,7 +6,7 @@ use VetScan\Models\IModel;
 
 class LabResults implements IModel
 {
-    private $results;
+    public $results;
 
     public function __construct(array $results = [])
     {
