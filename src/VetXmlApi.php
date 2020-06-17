@@ -10,6 +10,7 @@ use VetScan\Mappers\DevicesMapper;
 use VetScan\Mappers\DirectoryOfServiceMapper;
 use VetScan\Mappers\GendersMapper;
 use VetScan\Mappers\LabApiLinksMapper;
+use VetScan\Mappers\MultipleOrdersMapping;
 use VetScan\Mappers\OrderMapping;
 use VetScan\Mappers\OrderLabResultMapping;
 use VetScan\Mappers\OrdersMapping;
@@ -22,6 +23,7 @@ use VetScan\Models\DirectoryOfService;
 use VetScan\Models\Genders;
 use VetScan\Models\IModel;
 use VetScan\Models\LabResults\TotalLabResult;
+use VetScan\Models\LabResults\TotalLabResults;
 use VetScan\Models\OrderResult;
 use VetScan\Models\Species;
 
@@ -295,25 +297,6 @@ class VetXmlApi
         return (new BatchResultsMapper())->toObject($xml);
     }
 
-
-
-    public function createOrderInstantly(OrderResult $order)
-    {
-        $request = $this->client->request(
-            'POST',
-            $this->routes->getCreateOrderInstantly(),
-            [
-                'connect_timeout' => $this->connectTimeout,
-                'headers' => $this->headers,
-                'body' => (new OrdersMapping())->toXml($order)
-            ]
-        );
-
-        $xml = $request->getBody()->getContents();
-
-        return (new OrdersMapping())->toObject($xml);
-    }
-
     public function createOrderAsPartner(TotalLabResult $order)
     {
         $request = $this->client->request(
@@ -322,13 +305,30 @@ class VetXmlApi
             [
                 'connect_timeout' => $this->connectTimeout,
                 'headers' => $this->headers,
-                'body' => (new OrdersMapping())->toXml($order)
+                'body' => (new OrderMapping())->toXml($order)
             ]
         );
 
         $xml = $request->getBody()->getContents();
 
-        return (new OrdersMapping())->toObject($xml);
+        return (new OrderMapping())->toObject($xml);
+    }
+
+    public function createMultipleOrdersAsPartner(TotalLabResults $orders)
+    {
+        $request = $this->client->request(
+            'POST',
+            $this->routes->createOrdersAsPartner(),
+            [
+                'connect_timeout' => $this->connectTimeout,
+                'headers' => $this->headers,
+                'body' => (new MultipleOrdersMapping())->toXml($orders)
+            ]
+        );
+
+        $xml = $request->getBody()->getContents();
+
+        return (new MultipleOrdersMapping())->toObject($xml);
     }
 
 }

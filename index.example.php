@@ -43,13 +43,18 @@ $api = new VetXmlApi(new Routes(new Config([
 
 // POST REQUESTS //
 
+/*
+// add multiple analisys as partner
 
-$order = new TotalLabResult(
+$practiceRef1 = 'rhapsody-14';
+$practiceRef2 = 'rhapsody-15';
+
+$order1 = new TotalLabResult(
     new Identification(
         'Request',
         'Practice1',
-        $clientId,
-        'rhapsody-3', // must be unique
+        'vetmanagerclient',
+        $practiceRef1,
         46,
         'FUSE, Ezyvet',
         4,
@@ -75,30 +80,82 @@ $order = new TotalLabResult(
     ])
 );
 
-try {
-    $result = $api->createOrderAsPartner($order);
-    pre($result);
-} catch (\Exception $err) {
-    pre($err->getMessage());
-}
+$order2 = new TotalLabResult(
+    new Identification(
+        'Request',
+        'Practice1',
+        'vetmanagerclient',
+        $practiceRef2,
+        46,
+        'FUSE, Ezyvet',
+        4,
+        'Corleone, Michael',
+        'provider-1'
+    ),
+    new AnimalDetail(
+        100004,
+        '',
+        'Rover',
+        'Male',
+        'DOG',
+        'Labrador',
+        '2013-08-03'
+    ),
+    new LabResults([
+        new LabResult(
+            new LabResultHeader('HEM')
+        ),
+        new LabResult(
+            new LabResultHeader('T4')
+        )
+    ])
+);
 
+$orders = new TotalLabResults([
+    $order1,
+    $order2
+]);
 
-//$order = new \VetScan\Models\Order();
-//
-//try {
-//    $orderResult = $api->createOrderInstantly($order);
-//    pre('result', $orderResult);
-//} catch (OderAlreadyInSystemError $err) {
-//    pre('order already exists: ' . $err->getMessage());
-//} catch (\Exception $err) {
-//    pre('total error: ' . $err->getMessage());
-//}
+$result = $api->createMultipleOrdersAsPartner($orders);
+pre('result', $result);
+*/
 
+/*
+// create order as partner
+$order = new TotalLabResult(
+    new Identification(
+        'Request',
+        'Practice1',
+        'vetmanagerclient',
+        'rhapsody-13',
+        46,
+        'FUSE, Ezyvet',
+        4,
+        'Corleone, Michael',
+        'provider-1'
+    ),
+    new AnimalDetail(
+        100004,
+        '',
+        'Rover',
+        'Male',
+        'DOG',
+        'Labrador',
+        '2013-08-03'
+    ),
+    new LabResults([
+        new LabResult(
+            new LabResultHeader('HEM')
+        ),
+        new LabResult(
+            new LabResultHeader('T4')
+        )
+    ])
+);
 
-
-
-
-
+$result = $api->createOrderAsPartner($order);
+pre($result);
+*/
 
 // GET REQUESTS //
 

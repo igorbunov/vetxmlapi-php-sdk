@@ -205,17 +205,6 @@ class Routes
         );
     }
 
-    public function getCreateOrderInstantly(): string
-    {
-        $route = '{{HOST}}/vetsync/v1/orders';
-
-        return str_replace(
-            '{{HOST}}',
-            $this->apiUrl,
-            $route
-        );
-    }
-
     public function getAcknowledgeOrder(string $practiceRef): string
     {
         $route  = '{{HOST}}/vetsync/v1/orders/{{PRACTICE_REF}}/acknowledged/COMPLETED';
@@ -370,6 +359,13 @@ class Routes
     }
 
     public function createOrderAsPartner()
+    {
+        $route = '{{HOST}}/vetsync/v1/orders';
+
+        return str_replace(['{{HOST}}'], [$this->apiUrl], $route);
+    }
+
+    public function createOrdersAsPartner()
     {
         $route = '{{HOST}}/vetsync/v1/orders';
 
