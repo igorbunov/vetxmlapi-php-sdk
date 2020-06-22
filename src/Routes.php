@@ -371,4 +371,53 @@ class Routes
 
         return str_replace(['{{HOST}}'], [$this->apiUrl], $route);
     }
+
+    public function searchByClientOrderId(string $clientOrderId)
+    {
+        $route = '{{HOST}}/vetsync/v1/orders/:id/status';
+
+        return str_replace([
+            '{{HOST}}',
+            ':id'
+        ], [
+            $this->apiUrl,
+            $clientOrderId
+        ], $route);
+    }
+
+    public function getSearchBy(array $filter)
+    {
+        $route = '{{HOST}}/vetsync/v1/orders/search';
+
+        $result = str_replace(['{{HOST}}'], [$this->apiUrl], $route);
+
+        $filterResult = array();
+
+        foreach ($filter as $key => $value) {
+            if (!empty($key) and !empty($value)) {
+                $filterResult[] = "$key=$value";
+            }
+        }
+
+        if (count($filterResult) > 0) {
+            $result .= "?" . implode('&', $filterResult);
+        }
+
+        return $result;
+    }
+
+    public function getAcknowledgeOrderStatus(string $practiceRef, string $status)
+    {
+        $route = '{{HOST}}/vetsync/v1/orders/:id/acknowledged/:status';
+
+        return str_replace([
+            '{{HOST}}',
+            ':id',
+            ':status'
+        ], [
+            $this->apiUrl,
+            $practiceRef,
+            $status
+        ], $route);
+    }
 }

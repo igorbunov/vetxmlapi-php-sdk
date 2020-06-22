@@ -331,4 +331,49 @@ class VetXmlApi
         return (new MultipleOrdersMapping())->toObject($xml);
     }
 
+    public function searchByClientOrderId(string $clientOrderId)
+    {
+        $xml = $this->client->request(
+            'GET',
+            $this->routes->searchByClientOrderId($clientOrderId),
+            [
+                'connect_timeout' => $this->connectTimeout,
+                'headers' => $this->headers
+            ]
+        )->getBody()->getContents();
+
+        return (new OrderMapping())->toObject($xml);
+    }
+
+    public function searchBy(array $filter)
+    {
+        $xml = $this->client->request(
+            'GET',
+            $this->routes->getSearchBy($filter),
+            [
+                'connect_timeout' => $this->connectTimeout,
+                'headers' => $this->headers
+            ]
+        )->getBody()->getContents();
+
+        return (new OrdersMapping())->toObject($xml);
+    }
+
+    public function acknowledgeOrderStatus(string $practiceRef, string $status)
+    {
+        //"WAITING-FOR-SAMPLE" "PARTIAL-RESULTS" "COMPLETED" "CANCELLED"
+//        pre($this->routes->getAcknowledgeOrderStatus($practiceRef, $status));
+        $request = $this->client->request(
+            'POST',
+            $this->routes->getAcknowledgeOrderStatus($practiceRef, $status),
+            [
+                'connect_timeout' => $this->connectTimeout,
+                'headers' => $this->headers
+            ]
+        );
+
+        $xml = $request->getBody()->getContents();
+
+        return (new OrderMapping())->toObject($xml);
+    }
 }

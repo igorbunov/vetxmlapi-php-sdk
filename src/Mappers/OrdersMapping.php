@@ -2,7 +2,7 @@
 
 namespace VetScan\Mappers;
 
-use VetScan\Errors\OderAlreadyInSystemError;
+use VetScan\Errors\OrderAlreadyInSystemError;
 use VetScan\Models\IModel;
 use VetScan\Models\Link;
 use VetScan\Models\OrderResult;
@@ -15,7 +15,7 @@ class OrdersMapping implements IMapper
         $orders = simplexml_load_string($xml);
 
         if (!is_null($orders) and $orders->getName() == 'error') {
-            throw new OderAlreadyInSystemError(strval($orders->message));
+            throw new OrderAlreadyInSystemError(strval($orders->message));
         }
 
         $pendingOrders = new PendingOrders();

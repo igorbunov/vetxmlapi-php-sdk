@@ -2,7 +2,7 @@
 
 namespace VetScan\Mappers;
 
-use VetScan\Errors\OderAlreadyInSystemError;
+use VetScan\Errors\OrderAlreadyInSystemError;
 use VetScan\Models\IModel;
 use VetScan\Models\LabResults\AnimalDetail;
 use VetScan\Models\LabResults\Identification;
@@ -20,7 +20,7 @@ class OrderLabResultMapping implements IMapper
         $xmlObj = simplexml_load_string($xml);
 
         if (!is_null($xmlObj) and $xmlObj->getName() == 'error') {
-            throw new OderAlreadyInSystemError(strval($xmlObj->message));
+            throw new OrderAlreadyInSystemError(strval($xmlObj->message));
         }
 
         $identification = new Identification(

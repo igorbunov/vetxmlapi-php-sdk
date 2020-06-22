@@ -2,7 +2,8 @@
 
 namespace VetScan\Mappers;
 
-use VetScan\Errors\OderAlreadyInSystemError;
+use VetScan\Errors\OrderAlreadyInSystemError;
+use VetScan\Errors\OrderNotFoundError;
 use VetScan\Models\IModel;
 use VetScan\Models\Link;
 use VetScan\Models\OrderResult;
@@ -15,7 +16,15 @@ class OrderMapping implements IMapper
         $order = simplexml_load_string($xml);
 
         if (!is_null($order) and $order->getName() == 'error') {
-            throw new OderAlreadyInSystemError(strval($order->message));
+            if (strval($order->message['context']) == "POLL LIST") {
+                throw new OrderNotFoundError(strval($order->message));
+            } else {
+                throw new OrderAlreadyInSystemError(strval($order->message));
+            }
+
+/*
+    <?xml version='1.0' encoding='UTF-8'?><error><message context="POLL LIST">Order Not Found in poll list with related status: rhapsody-13</message></error>
+*/
         }
 
         $orderObj = new OrderResult(

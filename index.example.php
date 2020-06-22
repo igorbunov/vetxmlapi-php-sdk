@@ -5,7 +5,7 @@ require_once 'vendor/autoload.php';
 use \VetScan\Config;
 use \VetScan\VetXmlApi;
 use \VetScan\Routes;
-use \VetScan\Errors\OderAlreadyInSystemError;
+use \VetScan\Errors\OrderAlreadyInSystemError;
 
 use \VetScan\Models\LabResults\TotalLabResult;
 use \VetScan\Models\LabResults\Identification;
@@ -41,7 +41,49 @@ $api = new VetXmlApi(new Routes(new Config([
 ])));
 
 
+
 // POST REQUESTS //
+
+//$result = $api->searchByClientOrderId('rhapsody-13');
+//pre($result);
+
+/*
+// acknowledge order status
+// NOT WORKING
+try {
+    $result = $api->acknowledgeOrderStatus('rhapsody-13', 'COMPLETED');
+    pre($result);
+} catch (OrderNotFoundError $err) {
+    pre('ERROR', $err->getMessage());
+} catch (OrderAlreadyInSystemError $err) {
+    pre('ERROR', $err->getMessage());
+} catch (\Exception $err) {
+    pre('ERROR', $err->getMessage());
+}
+*/
+
+/*
+// search by filter
+$result = $api->searchBy(array(
+    'providerid' => '',
+    'status' => '',
+    'lastname' => '',
+    'firstname' => '',
+    'startdate' => '',
+    'enddate' => '',
+    'chartnumber' => '',
+    'clientId' => $clientId
+));
+
+pre($result);
+*/
+
+
+/*
+// search by client_order_id
+$result = $api->searchByClientOrderId('rhapsody-13');
+pre($result);
+*/
 
 /*
 // add multiple analisys as partner
@@ -53,7 +95,7 @@ $order1 = new TotalLabResult(
     new Identification(
         'Request',
         'Practice1',
-        'vetmanagerclient',
+        $clientId,
         $practiceRef1,
         46,
         'FUSE, Ezyvet',
@@ -84,7 +126,7 @@ $order2 = new TotalLabResult(
     new Identification(
         'Request',
         'Practice1',
-        'vetmanagerclient',
+        $clientId,
         $practiceRef2,
         46,
         'FUSE, Ezyvet',
@@ -126,7 +168,7 @@ $order = new TotalLabResult(
     new Identification(
         'Request',
         'Practice1',
-        'vetmanagerclient',
+        $clientId,
         'rhapsody-13',
         46,
         'FUSE, Ezyvet',
@@ -181,7 +223,7 @@ pre($orders);
 $orders = $api->getOrdersByProviderClientStatus(
     'provider-2',
     'COMPLETED',
-    'vetmanagerclient'
+    $clientId
 );
 pre($orders);
 */
