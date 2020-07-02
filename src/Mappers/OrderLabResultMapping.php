@@ -18,7 +18,7 @@ class OrderLabResultMapping implements IMapper
     public function toObject(string $xml): IModel
     {
         $xmlObj = simplexml_load_string($xml);
-
+pre('from mapping', $xmlObj);
         if (!is_null($xmlObj) and $xmlObj->getName() == 'error') {
             throw new OrderAlreadyInSystemError(strval($xmlObj->message));
         }

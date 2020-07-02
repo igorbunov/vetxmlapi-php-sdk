@@ -233,20 +233,6 @@ class Routes
         );
     }
 
-    public function getCancelOrder(string $practiceRef): string
-    {
-        $route = '{{HOST}}/vetsync/v1/orders/{{PRACTICE_REF}}';
-
-        return str_replace(
-            [
-                '{{HOST}}',
-                '{{PRACTICE_REF}}'
-            ], [
-                $this->apiUrl,
-                $practiceRef
-            ], $route
-        );
-    }
 
 //    public function getCancelOrderByTestCode(string $practiceRef, string $testCode): string
 //    {
@@ -418,6 +404,32 @@ class Routes
             $this->apiUrl,
             $practiceRef,
             $status
+        ], $route);
+    }
+
+    public function getOrderResults(string $practiceRef)
+    {
+        $route = '{{HOST}}/vetsync/v1/orders/:id/results';
+
+        return str_replace([
+            '{{HOST}}',
+            ':id'
+        ], [
+            $this->apiUrl,
+            $practiceRef
+        ], $route);
+    }
+
+    public function getCancelOrderById(string $practiceRef)
+    {
+        $route = '{{HOST}}/vetsync/v1/orders/:id';
+
+        return str_replace([
+            '{{HOST}}',
+            ':id'
+        ], [
+            $this->apiUrl,
+            $practiceRef
         ], $route);
     }
 }

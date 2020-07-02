@@ -44,6 +44,13 @@ $api = new VetXmlApi(new Routes(new Config([
 
 // POST REQUESTS //
 
+
+/*
+// get order result
+$results = $api->getOrderResults('rhapsody-13');
+pre($results);
+*/
+
 //$result = $api->searchByClientOrderId('rhapsody-13');
 //pre($result);
 

@@ -4,6 +4,7 @@ namespace VetScan;
 
 use GuzzleHttp\Client;
 use VetScan\Mappers\BatchResultsMapper;
+use VetScan\Mappers\CancelOrderMapper;
 use VetScan\Mappers\ClientsMapper;
 use VetScan\Mappers\DeviceMapper;
 use VetScan\Mappers\DevicesMapper;
@@ -375,5 +376,33 @@ class VetXmlApi
         $xml = $request->getBody()->getContents();
 
         return (new OrderMapping())->toObject($xml);
+    }
+
+    public function getOrderResults(string $practiceRef)
+    {
+        $xml = $this->client->request(
+            'GET',
+            $this->routes->getOrderResults($practiceRef),
+            [
+                'connect_timeout' => $this->connectTimeout,
+                'headers' => $this->headers
+            ]
+        )->getBody()->getContents();
+
+        return (new OrderLabResultMapping())->toObject($xml);
+    }
+
+    public function cancelOrderById(string $practiceRef)
+    {
+        $xml = $this->client->request(
+            'DELETE',
+            $this->routes->getCancelOrderById($practiceRef),
+            [
+                'connect_timeout' => $this->connectTimeout,
+                'headers' => $this->headers
+            ]
+        )->getBody()->getContents();
+
+        return (new CancelOrderMapper())->toObject($xml);
     }
 }
