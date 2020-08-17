@@ -44,6 +44,16 @@ $api = new VetXmlApi(new Routes(new Config([
 
 // POST REQUESTS //
 
+/*
+$order = new \VetScan\Models\BatchOrders(new \VetScan\Models\BatchOrder('vetmanager-analysis-111'));
+
+try {
+    $res = $api->acknowledgeBatchResults($order);
+    pre($res);
+} catch (\Exception $err) {
+    pre('cathced err' , $err->getMessage());
+}
+*/
 
 /*
 // get order result
