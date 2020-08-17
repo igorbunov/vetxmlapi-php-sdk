@@ -3,6 +3,7 @@
 namespace VetScan;
 
 use GuzzleHttp\Client;
+use VetScan\Mappers\BatchAcknowledgedMapper;
 use VetScan\Mappers\BatchResultsMapper;
 use VetScan\Mappers\CancelOrderMapper;
 use VetScan\Mappers\ClientsMapper;
@@ -404,5 +405,20 @@ class VetXmlApi
         )->getBody()->getContents();
 
         return (new CancelOrderMapper())->toObject($xml);
+    }
+
+    public function acknowledgeBatchResults(IModel $batchOrders)
+    {
+        $xml = $this->client->request(
+            'POST',
+            $this->routes->getAcknowledgeBatchResults(),
+            [
+                'connect_timeout' => $this->connectTimeout,
+                'headers' => $this->headers,
+                'body' => (new BatchAcknowledgedMapper())->toXml($batchOrders)
+            ]
+        )->getBody()->getContents();
+
+        return (new BatchAcknowledgedMapper())->toObject($xml);
     }
 }
