@@ -30,6 +30,5 @@ class LabApiLinksMapper implements IMapper
 
     public function toXml(IModel $obj): string
     {
-//        pre($obj);
     }
 }

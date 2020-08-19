@@ -363,8 +363,6 @@ class VetXmlApi
 
     public function acknowledgeOrderStatus(string $practiceRef, string $status)
     {
-        //"WAITING-FOR-SAMPLE" "PARTIAL-RESULTS" "COMPLETED" "CANCELLED"
-//        pre($this->routes->getAcknowledgeOrderStatus($practiceRef, $status));
         $request = $this->client->request(
             'POST',
             $this->routes->getAcknowledgeOrderStatus($practiceRef, $status),

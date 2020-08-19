@@ -233,24 +233,6 @@ class Routes
         );
     }
 
-
-//    public function getCancelOrderByTestCode(string $practiceRef, string $testCode): string
-//    {
-//        $route = '{{HOST}}/vetsync/v1/orders/{{PRACTICE_REF}}/:{{TEST_CODE}}';
-//
-//        return str_replace(
-//            [
-//                '{{HOST}}',
-//                '{{PRACTICE_REF}}',
-//                '{{TEST_CODE}}'
-//            ], [
-//                $this->apiUrl,
-//                $practiceRef,
-//                $testCode
-//            ], $route
-//        );
-//    }
-
     public function getSettings(): string
     {
         $route = '{{HOST}}/vetsync/v1/settings';

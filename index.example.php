@@ -44,20 +44,72 @@ $api = new VetXmlApi(new Routes(new Config([
 
 // POST REQUESTS //
 
-/*
-$order = new \VetScan\Models\BatchOrders(new \VetScan\Models\BatchOrder('vetmanager-analysis-111'));
 
-try {
-    $res = $api->acknowledgeBatchResults($order);
-    pre($res);
-} catch (\Exception $err) {
-    pre('cathced err' , $err->getMessage());
-}
-*/
+//try {
+//    $res = $api->acknowledgeBatchResults($order);
+//    pre($res);
+//} catch (\Exception $err) {
+//    pre('cathced err' , $err->getMessage());
+//}
+
+// POST REQUESTS //
+
+//$res = $api->getOrderResults('vetmanager-analysis-130');
+//pre($res);
+
+//{{HOST}}/vetsync/v1/orders/:id/results
+//TODO: need to do
+
+
+//$order = new TotalLabResult(
+//    new Identification(
+//        'Request',
+//        'Practice1',
+//        $clientId,
+//        'rhapsody-25',
+//        46,
+//        'FUSE, Ezyvet',
+//        4,
+//        'Corleone, Michael',
+//        'provider-1'
+//    ),
+//    new AnimalDetail(
+//        100004,
+//        '',
+//        'Rover',
+//        'Male',
+//        'DOG',
+//        'Labrador',
+//        '2013-08-03'
+//    ),
+//    new LabResults([
+//        new LabResult(
+//            new LabResultHeader('HEM')
+//        ),
+//        new LabResult(
+//            new LabResultHeader('T4')
+//        )
+//    ])
+//);
+//
+//$result = $api->createOrderAsPartner($order);
+//pre($result);
+//die();
+
+//{{HOST}}/vetsync/v1/orders/:id
+//try {
+//    $result = $api->cancelOrderById('rhapsody-25');
+//    pre($result);
+//} catch (\VetScan\Errors\OrderAlreadyCancelledError $err) {
+//    pre($err->getMessage());
+//} catch (\Exception $err) {
+//    pre($err->getMessage());
+//}
+
 
 /*
 // get order result
-$results = $api->getOrderResults('rhapsody-13');
+$results = $api->getOrderResults('rhapsody-21');
 pre($results);
 */
 
@@ -68,7 +120,7 @@ pre($results);
 // acknowledge order status
 // NOT WORKING
 try {
-    $result = $api->acknowledgeOrderStatus('rhapsody-13', 'COMPLETED');
+    $result = $api->acknowledgeOrderStatus('rhapsody-13', 'WAITING-FOR-SAMPLE');
     pre($result);
 } catch (OrderNotFoundError $err) {
     pre('ERROR', $err->getMessage());
@@ -186,7 +238,7 @@ $order = new TotalLabResult(
         'Request',
         'Practice1',
         $clientId,
-        'rhapsody-13',
+        'rhapsody-21',
         46,
         'FUSE, Ezyvet',
         4,
@@ -317,3 +369,4 @@ pre('result after set', $setResult);
 $settings = $api->getSettings();
 pre('get settings', $settings);
 */
+

@@ -21,10 +21,6 @@ class OrderMapping implements IMapper
             } else {
                 throw new OrderAlreadyInSystemError(strval($order->message));
             }
-
-/*
-    <?xml version='1.0' encoding='UTF-8'?><error><message context="POLL LIST">Order Not Found in poll list with related status: rhapsody-13</message></error>
-*/
         }
 
         $orderObj = new OrderResult(
@@ -49,7 +45,6 @@ class OrderMapping implements IMapper
 
     public function toXml(IModel $obj): string
     {
-        // TODO: Implement toXml() method.
         $encoding = '<?xml version="1.0" encoding="UTF-8"?>';
         $starReport = '<LabReport/>';
 
@@ -84,9 +79,6 @@ class OrderMapping implements IMapper
             $labRequest = $labRequests->addChild('LabRequest');
             $labRequest->addChild('TestCode', $row->header->testCode);
         }
-
-        //TODO: continue
-//        pre($xml->asXML());
 
         return $xml->asXML();
     }

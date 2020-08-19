@@ -20,7 +20,7 @@ class CancelOrderMapper implements IMapper
             if (strval($xmlObj->message['context']) == "ORDER CANCEL") {
                 throw new OrderAlreadyCancelledError(strval($xmlObj->message));
             } else {
-                pre($xmlObj);
+                throw new \Exception('unhandled error');
             }
         }
 

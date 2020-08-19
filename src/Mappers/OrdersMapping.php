@@ -46,7 +46,6 @@ class OrdersMapping implements IMapper
 
     public function toXml(IModel $obj): string
     {
-        // TODO: Implement toXml() method.
         $encoding = '<?xml version="1.0" encoding="UTF-8"?>';
         $starReport = '<LabReport/>';
 
@@ -81,9 +80,6 @@ class OrdersMapping implements IMapper
             $labRequest = $labRequests->addChild('LabRequest');
             $labRequest->addChild('TestCode', $row->header->testCode);
         }
-
-        //TODO: continue
-//        pre($xml->asXML());
 
         return $xml->asXML();
     }

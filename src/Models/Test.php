@@ -29,14 +29,4 @@ class Test implements IModel
         $this->currency = $currency;
         $this->nonDiscountable = $nonDiscountable;
     }
-
-//        '<Test>
-//            <Name>Mammalian Liver Profile</Name>
-//            <Code>MLP</Code>
-//            <Replicate>0</Replicate>
-//            <ValidFrom>2016-06-30</ValidFrom>
-//            <Includes>ALB, ALP, ALT, BA, BUN, CHOL, GGT, TBIL</Includes>
-//            <Currency>None</Currency>
-//            <NonDiscountable>false</NonDiscountable>
-//        </Test>';
 }
