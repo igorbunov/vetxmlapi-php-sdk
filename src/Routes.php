@@ -402,6 +402,19 @@ class Routes
         ], $route);
     }
 
+    public function getOrderResultsFile(string $practiceRef)
+    {
+        $route = '{{HOST}}/vetsync/v1/orders/:id/results/file';
+
+        return str_replace([
+            '{{HOST}}',
+            ':id'
+        ], [
+            $this->apiUrl,
+            $practiceRef
+        ], $route);
+    }
+
     public function getCancelOrderById(string $practiceRef)
     {
         $route = '{{HOST}}/vetsync/v1/orders/:id';
