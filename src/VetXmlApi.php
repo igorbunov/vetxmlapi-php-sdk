@@ -391,6 +391,24 @@ class VetXmlApi
         return (new OrderLabResultMapping())->toObject($xml);
     }
 
+    public function getOrderResultsFile(string $practiceRef)
+    {
+        $this->headers['Content-Type']  = 'application/pdf';
+
+        $fileContent = $this->client->request(
+            'GET',
+            $this->routes->getOrderResultsFile($practiceRef),
+            [
+                'connect_timeout' => $this->connectTimeout,
+                'headers' => $this->headers
+            ]
+        )->getBody()->getContents();
+
+        $this->headers['Content-Type']  = 'application/xml';
+
+        return $fileContent;
+    }
+
     public function cancelOrderById(string $practiceRef)
     {
         $xml = $this->client->request(
